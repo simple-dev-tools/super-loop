@@ -1,6 +1,6 @@
 {
   "name": "super-loop",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Producer-consumer implementation based on nodejs stream",
   "main": "index.js",
   "keywords": [
@@ -25,11 +25,11 @@
   "author": "Matt Shen",
   "license": "MIT",
   "dependencies": {
-    "measured-core": "^2.0.0",
     "rate-limiter-flexible": "^2.3.6",
     "through2-concurrent": "2.0.0"
   },
   "devDependencies": {
+    "measured-core": "^2.0.0",
     "dotenv": "^8.2.0",
     "eslint": "^7.26.0",
     "jest": "^26.6.3"
