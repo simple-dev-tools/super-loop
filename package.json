@@ -1,0 +1,60 @@
+{
+  "name": "super-loop",
+  "version": "0.1.0",
+  "description": "Producer-consumer implementation based on nodejs stream",
+  "main": "index.js",
+  "keywords": [
+    "producer",
+    "consumer",
+    "nodejs",
+    "stream",
+    "loop",
+    "backpressure",
+    "concurrency"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/simple-dev-tools/super-loop.git"
+  },
+  "homepage": "https://github.com/simple-dev-tools/super-loop#readme",
+  "scripts": {
+    "test": "./node_modules/jest/bin/jest.js --coverage --collectCoverageFrom=src/**/*.js --detectOpenHandles --forceExit",
+    "lint": "eslint .",
+    "example1": "node -r dotenv/config examples/produce-consumer.js"
+  },
+  "author": "Matt Shen",
+  "license": "MIT",
+  "dependencies": {
+    "measured-core": "^2.0.0",
+    "rate-limiter-flexible": "^2.3.6",
+    "through2-concurrent": "2.0.0"
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0",
+    "eslint": "^7.26.0",
+    "jest": "^26.6.3"
+  },
+  "jest": {
+    "testRegex": "./__tests__/.*\\.(test|spec)\\.js$",
+    "testEnvironment": "node",
+    "globals": {
+      "request": {}
+    },
+    "verbose": true,
+    "moduleDirectories": [
+      "node_modules",
+      "lib"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 85,
+        "functions": 85,
+        "lines": 85,
+        "statements": 85
+      }
+    },
+    "collectCoverageFrom": [
+      "src/**/*.js"
+    ]
+  }
+}
