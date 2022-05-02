@@ -16,6 +16,7 @@ class SuperLoop extends EventEmitter {
     this.producerFunc = null // function should tak no arg, and return Array
     this.consumerFunc = () => { }
     this.enderFunc = () => false // function return true or false
+    this.upstream = null;
   }
 
   consumedBy(f) {
@@ -57,20 +58,31 @@ class SuperLoop extends EventEmitter {
     return this
   }
 
+  pipeFrom(up) {
+    this.upstream = up;
+    return this
+  }
+
   async exec() {
     const _func = this.consumerFunc
     const _loop = this
     let forcePipeStop = false
+    
     try {
-      await promisify(pipeline)(
-        new Streams.SimpleLoopReadable({
+
+      if (!this.upstream) {
+        this.upstream = new Streams.SimpleLoopReadable({
           objectMode: true,
           maxRepeat: this.maxRepeat,
           endTimestamp: this.endTimestamp,
           messageProducerFunc: this.producerFunc,
           streamEnderFunc: () => this.enderFunc() || forcePipeStop,
           loggingEmitter: _loop
-        }),
+        })
+      }
+
+      await promisify(pipeline)(
+        this.upstream,
         Streams.StreamThrottler(this.maxTps),
         t2c.obj({
           objectMode: true,
