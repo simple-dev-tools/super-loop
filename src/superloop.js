@@ -18,17 +18,17 @@ class SuperLoop extends EventEmitter {
     this.enderFunc = () => false // function return true or false
   }
 
-  invoke(f) {
-    this.consumerFunc = f
-    return this
-  }
-
   consumedBy(f) {
     return this.invoke(f)
   }
 
   producedBy(f) {
     this.producerFunc = f
+    return this
+  }
+
+  invoke(f) {
+    this.consumerFunc = f
     return this
   }
 
