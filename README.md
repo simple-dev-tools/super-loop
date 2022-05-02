@@ -133,22 +133,22 @@ Super Loop API design follows [Fluent Interface](https://en.wikipedia.org/wiki/F
 Configure consumer function. 
 
 Arguments: 
-* `f` is a function that take nodejs stream chunk as param, and returns nothing.
+* `f` is a function that take nodejs stream chunk as param, and returns nothing. e.g. `(data) => { console.log(data) }` 
 
 ### producedBy(f)
 
 Configure producer function.
 
 Arguments: 
-* `f` is a function that takes no param, but returns an Array of data chunks. 
+* `f` is a function that takes no param, but returns an Array of data chunks. e.g. `() => [1, 2, 'a', 'b']`
 
 ### invoke(f)
 
-Alias to `consumeBy`. 
+Alias to `consumedBy`. 
 
 ### endedBy(f)
 
-Configure ender function. When the ender function returns `true`, the loop ends.
+Configure ender function. When the ender function returns `true`, the loop ends. e.g. `() => false`
 
 Arguments: 
 * `f` is a function that takes no param, but returns a boolean.  
@@ -183,7 +183,7 @@ Arguments:
 
 ### exec() 
 
-Starts the loop until one of the ending conditions is met. The ending condition is specified by `endedBy`, `until`, `repeat`. 
+Start the loop for execution, until one of the ending conditions is met. The ending conditions are specified by `endedBy`, `until`, `repeat`. 
 
 Returns:
 
