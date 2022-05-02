@@ -83,8 +83,8 @@ main().catch(console.error)
 ```
 
 ### More examples
-* [CSV Processing] (./examples/csv_processor.js)
-* [Enhanced for/while Loop] (./examples/simple_loop.js)
+* [CSV Processing](https://github.com/simple-dev-tools/super-loop/blob/main/examples/csv_processor.js)
+* [Enhanced for/while Loop](https://github.com/simple-dev-tools/super-loop/blob/main/simple_loop.js)
 
 
 ## API
