@@ -28,7 +28,7 @@ Asynchronous event-based processing is quite common in modern microservice archi
 npm i --save super-loop
 ```
 
-## Example
+## Example 1 - simple loop
 
 ```js
 
@@ -71,6 +71,55 @@ async function main() {
 
 main().catch(console.error)
 
+```
+
+## Examample 2 - producer consumer problem
+
+```js
+const SuperLoop =  require('super-loop');
+const stats = require('measured-core').createCollection();
+
+async function main() {
+    const intv = setInterval(function () {
+        console.log(JSON.stringify(stats, null, 2));
+    }, 1000);
+
+    try {
+        const producer = () => {
+            stats.meter('producerTps').mark();
+            return [{name: 'John'}, {name: 'Alex'}]
+        }
+
+        const consumer = (data) => {
+            stats.meter('consumerTps').mark();
+            // processing ...
+            //console.log(data);
+        }
+
+        const loop = new SuperLoop();
+        const lastFor = 120_000;
+
+        loop.on('warn', (err) => {
+            console.error(err);
+        });
+
+        await loop.producedBy(producer)
+            .consumedBy(consumer)
+            .concurrency(200)
+            .rate(1000)
+            //.repeat(100)
+            .until(Date.now() + lastFor)
+            .exec();
+
+        console.log('loop ends')
+
+    } catch (e) {
+        console.error('something went wrong', e)
+    }
+    clearInterval(intv);
+}
+
+main().catch(console.error)
 ```
 
 ## API
