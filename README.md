@@ -73,7 +73,7 @@ main().catch(console.error)
 
 ```
 
-## Examample 2 - producer consumer problem
+## Example 2 - producer consumer problem
 
 ```js
 const SuperLoop =  require('super-loop');

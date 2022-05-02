@@ -1,6 +1,6 @@
 {
   "name": "super-loop",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Producer-consumer implementation based on nodejs stream",
   "main": "index.js",
   "keywords": [
