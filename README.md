@@ -13,13 +13,16 @@ It provides the following features:
 * supports max concurrency configuration;
 
 ## Why
-----
-Asynchronous event-based processing is quite common in modern microservice architecture. Here are some typical use cases: 
+
+Asynchronous event-based processing is quite common in modern microservice architecture as well as data ETL. Here are some typical use cases: 
 
 * Consume SQS messages at given max tps and max concurrency to fully utilize system capacity (e.g. CPU);
 * Read upstream events and persist them to a NoSQL db at fast and controlled pace;
 * Purge NoSQL db records selectively at fast and controlled pace;
 * Process CSV files and call REST API at fast and controlled pace;
+
+
+The goal of this library is to provide easy programming interfaces for those common and popular use cases, so as to increase developer efficiency. 
 
 
 ## Installation
@@ -28,54 +31,9 @@ Asynchronous event-based processing is quite common in modern microservice archi
 npm i --save super-loop
 ```
 
-## Usage Exampels
+## Usage Examples
 
-### Example 1 - simple loop
-
-```js
-
-const SuperLoop = require('super-loop');
-const stats = require('measured-core').createCollection();
-
-async function main() {
-    const intv = setInterval(function () {
-        console.log(JSON.stringify(stats));
-    }, 1000);
-
-    try {
-        const f = (data) => {
-            stats.meter('requestsPerSecond').mark();
-            // processing ...
-            //console.log(data);
-            //throw new Error('processing error');
-        }
-        const loop = new SuperLoop();
-        const lastFor = 120_000;
-
-        loop.on('warn', (err) => {
-            console.error(err);
-        });
-
-        await loop.invoke(f)
-            .concurrency(1000)
-            .rate(10000)
-            //.repeat(100)
-            .until(Date.now() + lastFor)
-            .exec();
-
-        console.log('loop ends')
-
-    } catch (e) {
-        console.error('something went wrong', e)
-    }
-    clearInterval(intv);
-}
-
-main().catch(console.error)
-
-```
-
-### Example 2 - producer consumer problem
+### Example - producer consumer problem
 
 ```js
 const SuperLoop =  require('super-loop');
@@ -124,58 +82,10 @@ async function main() {
 main().catch(console.error)
 ```
 
-### Example 3 - processing csv file
+### More examples
+* [CSV Processing] (./examples/csv_processor.js)
+* [Enhanced for/while Loop] (./examples/simple_loop.js)
 
-```js
-const csv = require('csv-parser');
-const fs = require('fs');
-
-const SuperLoop = require('../index');
-const stats = require('measured-core').createCollection();
-
-async function main() {
-    const intv = setInterval(function () {
-        console.log(JSON.stringify(stats, null, 2));
-    }, 1000);
-
-    try {
-
-        const upstream = fs.createReadStream('./examples/csv_sample.csv').pipe(csv())
-
-        const consumer = (data) => {
-            stats.meter('consumerTps').mark();
-            // processing ...
-            // console.log(data)
-            // calling another API to process csv records
-            //throw new Error('processing error');
-        }
-
-        const loop = new SuperLoop();
-        const lastFor = 120_000;
-
-        loop.on('warn', (err) => {
-            console.error(err);
-        });
-
-        await loop.pipeFrom(upstream)
-            .consumedBy(consumer)
-            .concurrency(200)
-            .rate(1000)
-            //.repeat(100)
-            .until(Date.now() + lastFor)
-            .exec();
-
-        console.log('loop ends')
-
-    } catch (e) {
-        console.error('something went wrong', e)
-    }
-    clearInterval(intv);
-}
-
-main().catch(console.error)
-
-```
 
 ## API
 
