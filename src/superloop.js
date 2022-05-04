@@ -19,22 +19,22 @@ class SuperLoop extends EventEmitter {
     this.upstream = null;
   }
 
-  consumedBy(f) {
-    return this.invoke(f)
+  consumedBy(func) {
+    return this.invoke(func)
   }
 
-  producedBy(f) {
-    this.producerFunc = f
+  producedBy(func) {
+    this.producerFunc = func
     return this
   }
 
-  invoke(f) {
-    this.consumerFunc = f
+  invoke(func) {
+    this.consumerFunc = func
     return this
   }
 
-  endedBy(f) {
-    this.enderFunc = f
+  endedBy(func) {
+    this.enderFunc = func
     return this
   }
 

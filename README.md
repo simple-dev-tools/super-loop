@@ -83,6 +83,7 @@ main().catch(console.error)
 ```
 
 ### More examples
+
 * [CSV Processing](https://github.com/simple-dev-tools/super-loop/blob/main/examples/csv_processor.js)
 * [Enhanced for/while Loop](https://github.com/simple-dev-tools/super-loop/blob/main/examples/simple_loop.js)
 
@@ -91,30 +92,30 @@ main().catch(console.error)
 
 Super Loop API design follows [Fluent Interface](https://en.wikipedia.org/wiki/Fluent_interface).  All methods return `this`, except `exec` which kicks off the execution of the loop.
 
-### consumedBy(f)
+### consumedBy(func)
 
 Configure consumer function. 
 
 Arguments: 
-* `f` is a function that take nodejs stream chunk as param, and returns nothing. e.g. `(data) => { console.log(data) }` 
+* `func` is a function that take nodejs stream chunk as param, and returns nothing. e.g. `(data) => { console.log(data) }` 
 
-### producedBy(f)
+### producedBy(func)
 
 Configure producer function.
 
 Arguments: 
-* `f` is a function that takes no param, but returns an Array of data chunks. e.g. `() => [1, 2, 'a', 'b']`
+* `func` is a function that takes no param, but returns an Array of data chunks. e.g. `() => [1, 2, 'a', 'b']`
 
-### invoke(f)
+### invoke(func)
 
 Alias to `consumedBy`. 
 
-### endedBy(f)
+### endedBy(func)
 
 Configure ender function. When the ender function returns `true`, the loop ends. e.g. `() => false`
 
 Arguments: 
-* `f` is a function that takes no param, but returns a boolean.  
+* `func` is a function that takes no param, but returns a boolean.  
 
 ### concurrency(maxC)
 
@@ -144,14 +145,14 @@ Configure max repeats the producer function should be called. After max repeats 
 Arguments: 
 * `times` max repeats
 
-### pipeFrom(up) 
+### pipeFrom(upstream) 
 
 Configure custom upstream rather than using super-loop internal `Readable` as upstream. 
 
 A good example is processing file stream.
 
 Arguments:
-* `up` Transform or Readable stream 
+* `upstream` Transform or Readable stream 
 
 ### exec() 
 
