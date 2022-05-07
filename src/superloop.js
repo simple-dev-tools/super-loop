@@ -16,7 +16,9 @@ class SuperLoop extends EventEmitter {
     this.producerFunc = null // function should tak no arg, and return Array
     this.consumerFunc = () => { }
     this.enderFunc = () => false // function return true or false
-    this.upstream = null;
+    this.upstream = null
+    this.downstream = null
+    this.mapperFuncs = []
   }
 
   consumedBy(func) {
@@ -59,7 +61,12 @@ class SuperLoop extends EventEmitter {
   }
 
   pipeFrom(up) {
-    this.upstream = up;
+    this.upstream = up
+    return this
+  }
+
+  pipeTo(down) {
+    this.downstream = down
     return this
   }
 
@@ -81,7 +88,7 @@ class SuperLoop extends EventEmitter {
         })
       }
 
-      await promisify(pipeline)(
+      const streams = [
         this.upstream,
         Streams.StreamThrottler(this.maxTps),
         t2c.obj({
@@ -89,7 +96,10 @@ class SuperLoop extends EventEmitter {
           maxConcurrency: this.maxConcurrency
         }, async function (data, _, cb) {
           try {
-            await _func(data)
+            const result = await _func(data)
+            if (_loop.downstream) { // only if downstream exists
+              this.push(result)
+            }
           } catch (err) {
             err.message = 'SuperLoop#exec Error -- ' + err.message
             _loop.emit('warn', err)
@@ -97,7 +107,16 @@ class SuperLoop extends EventEmitter {
             cb()
           }
         })
+      ]
+      
+      if (this.downstream) {
+        streams.push(this.downstream)
+      }
+
+      await promisify(pipeline)(
+        ...streams
       )
+
     } catch (pipeError) {
       forcePipeStop = true
       throw pipeError

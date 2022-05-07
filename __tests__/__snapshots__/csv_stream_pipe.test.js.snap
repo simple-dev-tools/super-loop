@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SuperLoop custom Readable as stream #process csv file and write to downstream 1`] = `
+Array [
+  Object {
+    "data": Object {
+      "height": "65.78331",
+      "index": "1",
+      "weight": "112.9925",
+    },
+  },
+  Object {
+    "data": Object {
+      "height": "71.51521",
+      "index": "2",
+      "weight": "136.4873",
+    },
+  },
+  Object {
+    "data": Object {
+      "height": "69.39874",
+      "index": "3",
+      "weight": "153.0269",
+    },
+  },
+]
+`;

@@ -2,7 +2,7 @@
 
 # Super Loop
 
-Easy programming interface for producer-consumer problem, leveraging nodejs stream. 
+Easy programming interface for producer-consumer problem and enhanced loop, leveraging nodejs stream. 
 
 It provides the following features: 
 * repeats cycle for `n` times;
@@ -153,6 +153,13 @@ A good example is processing file stream.
 
 Arguments:
 * `upstream` Transform or Readable stream 
+
+### pipeTo(downstream) 
+
+Configure custom downstream to continue streaming.
+
+Arguments:
+* `downstream` Transform or Writable stream 
 
 ### exec() 
 
