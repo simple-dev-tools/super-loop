@@ -20,6 +20,7 @@ Asynchronous event-based processing is quite common in modern microservice archi
 * Read upstream events and persist them to a NoSQL db at fast and controlled pace;
 * Purge NoSQL db records selectively at fast and controlled pace;
 * Process CSV files and call REST API at fast and controlled pace;
+* Performance-test HTTP endpoints with customized data, i.e. a simplified version of K6;
 
 
 The goal of this library is to provide easy programming interfaces for those common and popular use cases, so as to increase developer efficiency. 
@@ -86,7 +87,7 @@ main().catch(console.error)
 
 * [CSV Processing](https://github.com/simple-dev-tools/super-loop/blob/main/examples/csv_processor.js)
 * [Enhanced for/while Loop](https://github.com/simple-dev-tools/super-loop/blob/main/examples/simple_loop.js)
-* [Use it for performance test your HTTP endpoints](https://github.com/simple-dev-tools/super-loop/blob/main/examples/performance_test1.js)
+* [Performance-test your HTTP endpoints](https://github.com/simple-dev-tools/super-loop/blob/main/examples/performance_test1.js)
 
 
 ## API
