@@ -1,5 +1,8 @@
 All notable changes to this project will be documented in this file.
 
+#### [0.3.1] - 18-12-2022
+- added examples for performance test scenario
+
 #### [0.2.0] - 07-05-2022
 - add downstream support
 

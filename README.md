@@ -86,6 +86,7 @@ main().catch(console.error)
 
 * [CSV Processing](https://github.com/simple-dev-tools/super-loop/blob/main/examples/csv_processor.js)
 * [Enhanced for/while Loop](https://github.com/simple-dev-tools/super-loop/blob/main/examples/simple_loop.js)
+* [Use it for performance test your HTTP endpoints](https://github.com/simple-dev-tools/super-loop/blob/main/examples/performance_test1.js)
 
 
 ## API
